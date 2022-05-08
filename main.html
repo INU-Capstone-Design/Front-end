@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+
+	<head>
+		<title>Minders</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+		<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header" class="container">
+
+						<!-- Logo -->
+							<h3 id="logo"><a>Minders</a></h3>
+
+							
+						<!-- Nav -->
+						<!-- <nav id="nav">
+							<ul>
+
+								<li class="break"><a href="/mymind/index.html">My Mind</a></li>
+
+							</ul>
+						</nav> -->
+					</div>
+
+					<!-- Hero -->
+						<section id="hero" class="container">
+							
+							<header>
+								<h2>마인더스는 ~~
+								<br />
+								~~</a></h2>
+							</header>
+							<p>~~
+							<br />
+							~~</p>
+							<div class="login-area">
+								<div id="message" style='color:#003330; font-weight:bold;'>
+									안녕하세요
+								</div>
+								<div id="button_area">
+									<div id="naverIdLogin"></div>
+								</div>
+							</div>
+						</section>
+
+				</div>
+
+
+			<!-- Features 2 -->
+				<div class="wrapper">
+					<section class="container">
+						<header class="major">
+							<h2>3D Team</h2>
+						</header>
+						<div class="row features">
+							<section class="col-4 col-12-narrower feature">
+								<div class="image-wrapper first">
+									<a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
+								</div>
+								<p>이승규</p>
+							</section>
+							<section class="col-4 col-12-narrower feature">
+								<div class="image-wrapper">
+									<a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
+								</div>
+								<p>장성태</p>
+							</section>
+							<section class="col-4 col-12-narrower feature">
+								<div class="image-wrapper">
+									<a href="#" class="image featured"><img src="images/pic05.jpg" alt="" /></a>
+								</div>
+								<p>조성빈</p>
+							</section>
+						</div>
+						<ul class="actions major">
+							<li><a href="https://github.com/INU-Capstone-Design" target="_blank" class="button">Github</a></li>
+						</ul>
+					</section>
+				</div>
+
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+			<script type="text/javascript">
+				const naverLogin = new naver.LoginWithNaverId({
+					clientId: "OfVCIWAy2C6y4VOXsR_K",
+					callbackUrl: "http://127.0.0.1:5501/main.html",
+					loginButton: {
+						color: "white",
+						type: 2,
+						height: 61
+					}
+				});
+				naverLogin.init(); // 로그인 설정
+		
+				naverLogin.getLoginStatus(function (status) {
+					if (status) {
+						const nickName = naverLogin.user.getNickName();
+		
+						//닉네임을 선택하지 않으면 선택창으로 돌아갑니다.
+						if (nickName === null || nickName === undefined) {
+							alert("정보제공을 동의해주세요.");
+							naverLogin.reprompt();
+							return;
+						} else {
+							setLoginStatus(); //모든 필수 정보 제공 동의하면 실행하는 함수
+						}
+					}
+				});
+		
+				function setLoginStatus() {
+		
+					const regiData = {
+						"username": naverLogin.user.nickname,
+						"password": "password",
+						"name": naverLogin.user.name,
+						"email": naverLogin.user.email
+					}
+					const loginData = {
+						"username": naverLogin.user.nickname,
+						"password": "password",
+					}
+		
+				fetch("http://116.33.120.211/auth/register", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(regiData),
+				}).then((response) => response.json()).then((data) => console.log(data.message));
+				
+				fetch("http://116.33.120.211/auth/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(loginData),
+				}).then((response) => response.json()).then((data) => {
+					
+					localStorage.setItem('userTk',data.Authorization);
+
+					console.log(data.Authorization);
+				});
+		
+				const message_area = document.getElementById('message');
+				message_area.innerHTML = `
+				<div style='color:#003330; font-weight:bold;' >${naverLogin.user.nickname}님</div>
+				`;
+				
+		
+				const button_area = document.getElementById('button_area');
+				const link_area = document.getElementById('logo');
+				button_area.innerHTML = "<button id='btn_logout' class='button'>로그아웃</button>";
+				link_area.innerHTML = "<a href='/mindmap/map.html'>Minders</a>";
+		
+				const logout = document.getElementById('btn_logout');
+				logout.addEventListener('click', (e) => {
+					naverLogin.logout();
+					location.replace("http://127.0.0.1:5501/main.html");
+				})
+				}
+			</script>
+
+	</body>
+</html>
