@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
-<html lang="ko">
 
+<html>
 	<head>
 		<title>Minders</title>
 		<meta charset="utf-8" />
@@ -8,90 +8,61 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 		<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
-</head>
-	<body class="homepage is-preload">
+
+	</head>
+	<body class="landing is-preload">
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				<div id="header-wrapper">
-					<div id="header" class="container">
-
-						<!-- Logo -->
-							<h3 id="logo"><a>Minders</a></h3>
-
-							
-						<!-- Nav -->
-						<!-- <nav id="nav">
-							<ul>
-
-								<li class="break"><a href="/mymind/index.html">My Mind</a></li>
-
-							</ul>
-						</nav> -->
-					</div>
-
-					<!-- Hero -->
-						<section id="hero" class="container">
-							
-							<header>
-								<h2>마인더스는 ~~
-								<br />
-								~~</a></h2>
-							</header>
-							<p>~~
-							<br />
-							~~</p>
-							<div class="login-area">
-								<div id="message" style='color:#003330; font-weight:bold;'>
-									안녕하세요
-								</div>
+				<header id="header" class="alt">
+					<h4 id="logo"><a>Minders</a></h4>
+					<nav id="nav">
+						<ul>
+							<li id="nomal"><a href="main.html">Home</a></li>
+							<li id="nomal">
+								<a href="/mindmap/map.html">Map</a>
+							</li>
+							<li>
 								<div id="button_area">
 									<div id="naverIdLogin"></div>
 								</div>
-							</div>
-						</section>
-
-				</div>
-
-
-			<!-- Features 2 -->
-				<div class="wrapper">
-					<section class="container">
-						<header class="major">
-							<h2>3D Team</h2>
-						</header>
-						<div class="row features">
-							<section class="col-4 col-12-narrower feature">
-								<div class="image-wrapper first">
-									<a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-								</div>
-								<p>이승규</p>
-							</section>
-							<section class="col-4 col-12-narrower feature">
-								<div class="image-wrapper">
-									<a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
-								</div>
-								<p>장성태</p>
-							</section>
-							<section class="col-4 col-12-narrower feature">
-								<div class="image-wrapper">
-									<a href="#" class="image featured"><img src="images/pic05.jpg" alt="" /></a>
-								</div>
-								<p>조성빈</p>
-							</section>
-						</div>
-						<ul class="actions major">
-							<li><a href="https://github.com/INU-Capstone-Design" target="_blank" class="button">Github</a></li>
+								<!-- <div class="login_area">
+									<div id="message" style='color:#003330; font-weight:bold;'>
+										
+									</div>
+								</div> -->
+							</li>
 						</ul>
-					</section>
-				</div>
+					</nav>
+				</header>
 
+			<!-- Banner -->
+				<section id="banner">
+					<h2>Minders</h2>
+					<p>~~~</p>
+					<ul class="actions special" id="message">
+						
+					</ul>
+				</section>
+
+			<!-- Main -->
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/INU-Capstone-Design" target="_blank" class="icon brands fa-github"><span class="label">Github</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>Capstone Design 3D Team</li><li>Design : 장성태 이승규 조성빈</li>
+					</ul>
+				</footer>
 
 		</div>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
@@ -104,7 +75,7 @@
 					loginButton: {
 						color: "white",
 						type: 2,
-						height: 61
+						height: 30,
 					}
 				});
 				naverLogin.init(); // 로그인 설정
@@ -160,9 +131,8 @@
 		
 				const message_area = document.getElementById('message');
 				message_area.innerHTML = `
-				<div style='color:#003330; font-weight:bold;' >${naverLogin.user.nickname}님</div>
+				<li><a href="/mindmap/map.html" class="button">${naverLogin.user.nickname}님의 마인드맵</a></li>
 				`;
-				
 		
 				const button_area = document.getElementById('button_area');
 				const link_area = document.getElementById('logo');
@@ -176,6 +146,7 @@
 				})
 				}
 			</script>
+
 
 	</body>
 </html>

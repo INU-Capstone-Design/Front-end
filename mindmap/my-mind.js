@@ -289,31 +289,6 @@
       publish("command-child");
 
     }
-    // console.log(mes);
-
-    // let item = currentItem;
-    // let action2 = new InsertNewItem(item, item.children.length);
-    // action(action2);
-    // let item2 = currentItem;
-    // item2.text=mes[0];
-    // let action3 = new InsertNewItem(item, item.children.length+1);
-    // action(action3);
-    // let item3 = currentItem;
-    // item3.text=mes[1];
-    // let action4 = new InsertNewItem(item, item.children.length+2);
-    // action(action4);
-    // let item4 = currentItem;
-    // item4.text=mes[2];
-    // let action5 = new InsertNewItem(item, item.children.length+3);
-    // action(action5);
-    // let item5 = currentItem;
-    // item5.text=mes[3];
-    // let action6 = new InsertNewItem(item, item.children.length+4);
-    // action(action6);
-    // let item6 = currentItem;
-    // item6.text=mes[4];
-    // publish("command-child");
-
   }
 
   function toggle2() {
@@ -1594,11 +1569,20 @@
       this.prefix = "mm.map";
     }
     save(data, id, name) {
-      localStorage.setItem(`${this.prefix}.${id}`, data);
+
+
+
+      localStorage.setItem(`mm.map.${id}`, data);
+
+      // console.log(data);
 
       let names = this.list();
       names[id] = name;
+      // console.log(names);
+
+
       localStorage.setItem(`${this.prefix}.names`, JSON.stringify(names));
+      // console.log()
     }
     load(id) {
       let data = localStorage.getItem(`${this.prefix}.${id}`);
@@ -1614,9 +1598,9 @@
       localStorage.setItem(`${this.prefix}.names`, JSON.stringify(names));
     }
     list() {
-
       try {
         let data = localStorage.getItem(`${this.prefix}.names`) || "{}";
+        // console.log(JSON.parse(data));
         return JSON.parse(data);
       } catch (e) {
         return {};
@@ -1729,6 +1713,7 @@
     load(id = this.list.value) {
       try {
         let data = this.backend.load(id);
+        console.log(data);
         var json = repo6.get("native").from(data);
         this.loadDone(json);
       } catch (e) {
@@ -2874,7 +2859,7 @@ ${text}`);
 
   function init11() {
     // , FirebaseUI, GDriveUI, FileUI, WebDAVUI, ImageUI
-    [LocalUI].forEach((ctor) => {
+    [LocalUI,FileUI].forEach((ctor) => {
       let bui = new ctor();
       select6.append(bui.option);
     });
